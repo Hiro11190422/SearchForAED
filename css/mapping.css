@@ -2,6 +2,7 @@
 
 html, body {
   height: 100%;
+  width: 980px;
 }
 
 body{
@@ -66,6 +67,11 @@ a:hover {
   left: 0;
   hight: 95% !important;
   width: 99% !important;
+}
+
+#imgs {
+  height: 50%;
+  align: center;
 }
 
 /*------------------------トップへ戻る*/
