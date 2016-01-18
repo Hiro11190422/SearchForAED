@@ -9,9 +9,9 @@ var deflng=138.382632;
 
 //------------------------------------------------------------------------------------------------------位置情報取得処理
 function start_func(){
-	get_location();       
+	get_location();
 }
- 
+
 //位置情報を取得
 function get_location(){
 	if (navigator.geolocation) {
@@ -38,7 +38,7 @@ function errorCallback(error) {
 function initialize(x,y) {
 	// Geolocationで取得した座標を代入
 	var myLatLng={lat: x, lng: y};
-	
+
 	map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 18,
 		center: myLatLng
@@ -61,7 +61,7 @@ var zoom=1;
 var currentInfowin=null;
 
 
-//----------------------------------------------------------------------------------------------CSVファイルの読み込み	
+//----------------------------------------------------------------------------------------------CSVファイルの読み込み
 
 
 $(function() {
@@ -71,13 +71,13 @@ $(function() {
   $.ajax({
     url: './data/aed-koukyou.csv',
     success: function(data) {
-    
+
       //----------------------------------------------------------------------------------------------csvを配列に格納
       csvList = $.csv()(data);
-      
+
       //----------------------------------------------------------------------------------------------データを別配列に格納
       for (var i = 1; i < csvList.length -1; i++) {
-        
+
         //-------------------------------------------------------------------------------------------------------------座標重複時にLngをプラス方向にずらす
         var lng='';
         var flg=0;
@@ -86,13 +86,13 @@ $(function() {
             flg=1;
           }
         }
-        
+
         if(flg==1){
             lng=Number(csvList[i][6])+0.00005;
         }else{
             lng=csvList[i][6];
         }
-        
+
         parkingdata.push(new google.maps.LatLng(csvList[i][5],lng));
         var no=1;
         visitno.push(String(csvList[i][4]));
@@ -109,7 +109,7 @@ function attachMessage(marker, msg, latlng) {
     var infowin=new google.maps.InfoWindow({
         content: msg
       });
-      
+
   //---------------------------------------------------------------------------------マウスオーバーでinfowinを開く&別のinfowinを閉じる
     google.maps.event.addListener(marker, 'mouseover', function(event) {
       if (currentInfowin) {
@@ -122,8 +122,8 @@ function attachMessage(marker, msg, latlng) {
     google.maps.event.addListener(marker, 'click', function(event){
       zoom=map.getZoom();
       map.panTo(latlng);
-      map.setZoom(18);
-      if(clicks==1 && zoom<18){
+      map.setZoom(20);
+      if(clicks==1 && zoom<20){
       	clicks=0;
       }
       else{
@@ -146,4 +146,3 @@ function drop() {
     attachMessage(markers[i], visitinfo[i], parkingdata[i]);
   }
 }
-
